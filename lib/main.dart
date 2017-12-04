@@ -14,20 +14,15 @@ class AStatelessWidget extends StatelessWidget {
       body: new Container(
         padding: new EdgeInsets.all(16.0),
         child: new Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            new ACard(
-              title: new Text("Large Donut"),
-              icon: new Icon(Icons.donut_large),
+            new Center(
+              child: new Text(
+                "Text here",
+                style: new TextStyle(fontSize: 32.0),
+              ),
             ),
-            new ACard(
-              title: new Text("Alarm On"),
-              icon: new Icon(Icons.alarm_on),
-            ),
-            new ACard(
-              title: new Text("Heart"),
-              icon: new Icon(Icons.favorite),
-            ),
+            new AListView(list: ["Hai", "Hello", "How are you","How is valkai","Nalama",
+            "enaku vela illa","Unaku","Ipo mani 6"]),
           ],
         ),
       ),
@@ -36,9 +31,8 @@ class AStatelessWidget extends StatelessWidget {
 }
 
 class ACard extends StatelessWidget {
-  ACard({this.title, this.icon});
+  ACard({this.title});
 
-  final Widget icon;
   final Widget title;
 
   @override
@@ -46,12 +40,38 @@ class ACard extends StatelessWidget {
     return new Container(
       child: new Card(
         child: new Container(
-          padding: new EdgeInsets.all(8.0),
-          child: new Column(
-            children: <Widget>[this.title, this.icon],
+          padding: new EdgeInsets.all(16.0),
+          child: new Center(
+            child: this.title,
           ),
         ),
       ),
     );
+  }
+}
+
+class AListView extends StatelessWidget {
+  AListView({this.list});
+
+  final List<String> list;
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      child: new Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: generateCards(this.list),
+      ),
+    );
+  }
+
+  List<Widget> generateCards(List<String> list) {
+    List<Widget> widgets = [];
+    for (String string in list) {
+      widgets.add(new ACard(
+        title: new Text(string),
+      ));
+    }
+    return widgets;
   }
 }
